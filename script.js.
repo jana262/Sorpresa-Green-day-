@@ -1,0 +1,95 @@
+let paginaActual = 0;
+
+const paginas = document.querySelectorAll(".pagina");
+
+function abrirCaja(){
+
+    document.getElementById("pantallaInicio").style.display = "none";
+
+    document.getElementById("libro").style.display = "block";
+
+    const musica = document.getElementById("musica");
+
+    musica.play().catch(()=>{});
+
+    crearCorazones();
+
+}
+
+function mostrarPagina(){
+
+    paginas.forEach((pagina)=>{
+
+        pagina.classList.remove("activa");
+
+    });
+
+    paginas[paginaActual].classList.add("activa");
+
+}
+
+function siguiente(){
+
+    if(paginaActual < paginas.length-1){
+
+        paginaActual++;
+
+        mostrarPagina();
+
+    }
+
+}
+
+function anterior(){
+
+    if(paginaActual > 0){
+
+        paginaActual--;
+
+        mostrarPagina();
+
+    }
+
+}
+
+function crearCorazones(){
+
+    setInterval(()=>{
+
+        const corazon=document.createElement("div");
+
+        corazon.innerHTML="💚";
+
+        corazon.style.position="fixed";
+
+        corazon.style.left=Math.random()*100+"vw";
+
+        corazon.style.top="100vh";
+
+        corazon.style.fontSize=(20+Math.random()*20)+"px";
+
+        corazon.style.pointerEvents="none";
+
+        corazon.style.transition="transform 6s linear, opacity 6s linear";
+
+        document.body.appendChild(corazon);
+
+        setTimeout(()=>{
+
+            corazon.style.transform="translateY(-120vh)";
+
+            corazon.style.opacity="0";
+
+        },100);
+
+        setTimeout(()=>{
+
+            corazon.remove();
+
+        },6000);
+
+    },700);
+
+}
+
+mostrarPagina();
